@@ -3,189 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rocket League Tournament Stats</title>
+    <title>NWIS Rocket League Tournament</title>
     <style>
-        /* DESIGN & COLORS */
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --accent-blue: #58a6ff;
-            --accent-orange: #f78166;
-            --text-main: #c9d1d9;
+            --bg: #05080a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent: #00e5ff;
+            --text: #e0e6ed;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            line-height: 1.6;
         }
 
         header {
-            width: 100%;
-            padding: 50px 0;
-            background: linear-gradient(180deg, #1f6feb 0%, #0d1117 100%);
+            padding: 60px 20px;
             text-align: center;
-            border-bottom: 1px solid #30363d;
+            background: radial-gradient(circle at center, #003366 0%, #05080a 100%);
+            border-bottom: 1px solid var(--border);
         }
 
-        h1 { margin: 0; font-size: 2.5rem; color: white; text-transform: uppercase; letter-spacing: 2px; }
+        h1 { font-size: 2.8rem; margin: 0; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
         
-        .container { width: 90%; max-width: 1100px; padding: 40px 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
-        /* TOP 4 STAT CARDS */
-        .top-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+        /* Latest Match Section */
+        .latest-match {
+            background: linear-gradient(90deg, rgba(0,229,255,0.1) 0%, rgba(0,0,0,0) 100%);
+            border: 1px solid var(--accent);
+            border-radius: 15px;
+            padding: 30px;
             margin-bottom: 50px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            padding: 25px;
             text-align: center;
-            transition: transform 0.2s;
         }
 
-        .card:hover { transform: translateY(-5px); border-color: var(--accent-blue); }
-        .card h3 { margin: 0 0 10px 0; font-size: 0.9rem; color: #8b949e; text-transform: uppercase; }
-        .card .name { font-size: 1.4rem; font-weight: bold; color: white; margin-bottom: 5px; }
-        .card .value { font-size: 2.2rem; font-weight: 800; color: var(--accent-blue); }
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
 
-        /* THE LEADERBOARD TABLE */
-        .table-container {
+        .category-section {
             background: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            border: 1px solid #30363d;
-            overflow: hidden;
+            padding: 20px;
+            backdrop-filter: blur(10px);
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        thead { background: #21262d; }
-        th { padding: 15px 20px; color: #8b949e; font-size: 0.85rem; text-transform: uppercase; }
-        td { padding: 15px 20px; border-top: 1px solid #30363d; font-size: 1rem; }
-        
-        .player-cell { font-weight: bold; color: white; }
-        .team-tag { color: #8b949e; font-size: 0.9rem; }
-        .stat-cell { font-family: 'Courier New', monospace; font-weight: bold; color: var(--accent-blue); }
+        .category-header h2 { margin: 0; font-size: 1.2rem; color: var(--accent); }
 
-        tr:hover { background: #1c2128; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        th { text-align: left; color: #888; font-weight: 400; padding-bottom: 10px; }
+        td { padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.05); }
+
+        .rank { color: var(--accent); font-weight: bold; width: 30px; }
+        .score { text-align: right; font-weight: bold; color: #fff; }
+        .team-tag { font-size: 0.75rem; color: #666; display: block; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>🏆 School Rocket League Open</h1>
-        <p>Official Tournament Leaderboard</p>
-    </header>
+<header>
+    <h1>NWIS Rocket League</h1>
+    <p>Tournament Leaderboards • Season 1</p>
+</header>
 
-    <div class="container">
-        <div class="top-row">
-            <div class="card">
-                <h3>Top Scorer</h3>
-                <div class="name" id="top-goals-name">-</div>
-                <div class="value" id="top-goals-val">0</div>
+<div class="container">
+    
+    <section class="latest-match">
+        <h2 style="margin-top:0; color: var(--accent);">Latest Match Results</h2>
+        <div style="display: flex; justify-content: space-around; align-items: center; font-size: 1.5rem;">
+            <div>Team A<br><span style="font-size: 3rem;">-</span></div>
+            <div style="color: var(--accent);">VS</div>
+            <div>Team B<br><span style="font-size: 3rem;">-</span></div>
+        </div>
+        <p style="color: #888; margin-bottom: 0;">Stats will be updated after the next game.</p>
+    </section>
+
+    <div class="category-grid">
+        <div class="category-section">
+            <div class="category-header">
+                <h2>Top Scorers</h2>
+                <span>⚽</span>
             </div>
-            <div class="card">
-                <h3>Top Assister</h3>
-                <div class="name" id="top-assists-name">-</div>
-                <div class="value" id="top-assists-val">0</div>
-            </div>
-            <div class="card">
-                <h3>Top Saver</h3>
-                <div class="name" id="top-saves-name">-</div>
-                <div class="value" id="top-saves-val">0</div>
-            </div>
-            <div class="card">
-                <h3>The Enforcer</h3>
-                <div class="name" id="top-demos-name">-</div>
-                <div class="value" id="top-demos-val">0</div>
-            </div>
+            <table id="goals-table">
+                <thead><tr><th>Player</th><th style="text-align:right;">Goals</th></tr></thead>
+                <tbody id="goals-body"></tbody>
+            </table>
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Team</th>
-                        <th>Goals</th>
-                        <th>Assists</th>
-                        <th>Saves</th>
-                        <th>Demos</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                    </tbody>
+        <div class="category-section">
+            <div class="category-header">
+                <h2>Top Assisters</h2>
+                <span>🤝</span>
+            </div>
+            <table id="assists-table">
+                <thead><tr><th>Player</th><th style="text-align:right;">Assists</th></tr></thead>
+                <tbody id="assists-body"></tbody>
+            </table>
+        </div>
+
+        <div class="category-section">
+            <div class="category-header">
+                <h2>Top Savers</h2>
+                <span>🛡️</span>
+            </div>
+            <table id="saves-table">
+                <thead><tr><th>Player</th><th style="text-align:right;">Saves</th></tr></thead>
+                <tbody id="saves-body"></tbody>
+            </table>
+        </div>
+
+        <div class="category-section">
+            <div class="category-header">
+                <h2>Top Demolitions</h2>
+                <span>💥</span>
+            </div>
+            <table id="demos-table">
+                <thead><tr><th>Player</th><th style="text-align:right;">Demos</th></tr></thead>
+                <tbody id="demos-body"></tbody>
             </table>
         </div>
     </div>
+</div>
 
-    <script>
-        /* HOW TO UPDATE STATS:
-           Just edit the names and numbers in the list below. 
-           The website will automatically recalculate the leaders!
-        */
-        const playerData = [
-            { name: "Alpha", team: "Blue Wings", g: 14, a: 5, s: 8, d: 12 },
-            { name: "Bravo", team: "Red Rockets", g: 8, a: 12, s: 4, d: 3 },
-            { name: "Charlie", team: "Green Gears", g: 4, a: 2, s: 19, d: 7 },
-            { name: "Delta", team: "Blue Wings", g: 19, a: 3, s: 2, d: 25 },
-            { name: "Echo", team: "Red Rockets", g: 6, a: 15, s: 9, d: 5 }
-        ];
+<script>
+    // DATA SOURCE: Update these values to refresh the site
+    const players = [
+        { name: "Alpha", team: "Blue Wings", g: 25, a: 12, s: 8, d: 5 },
+        { name: "Bravo", team: "Red Rockets", g: 14, a: 18, s: 5, d: 30 },
+        { name: "Charlie", team: "Green Gears", g: 5, a: 7, s: 31, d: 12 },
+        { name: "Delta", team: "Blue Wings", g: 8, a: 5, s: 4, d: 56 },
+        { name: "Echo", team: "Red Rockets", g: 19, a: 11, s: 14, d: 2 }
+    ];
 
-        function loadStats() {
-            const tableBody = document.getElementById('table-body');
-            
-            // 1. Sort by goals for the main list
-            const sorted = [...playerData].sort((a, b) => b.g - a.g);
+    function fillTable(id, key) {
+        const body = document.getElementById(id);
+        const sorted = [...players].sort((a,b) => b[key] - a[key]);
+        
+        sorted.forEach((p, index) => {
+            body.innerHTML += `
+                <tr>
+                    <td>
+                        <span class="rank">#${index+1}</span> ${p.name}
+                        <span class="team-tag">${p.team}</span>
+                    </td>
+                    <td class="score">${p[key]}</td>
+                </tr>
+            `;
+        });
+    }
 
-            // 2. Build the table
-            sorted.forEach(p => {
-                tableBody.innerHTML += `
-                    <tr>
-                        <td class="player-cell">${p.name}</td>
-                        <td class="team-tag">${p.team}</td>
-                        <td class="stat-cell">${p.g}</td>
-                        <td class="stat-cell">${p.a}</td>
-                        <td class="stat-cell">${p.s}</td>
-                        <td class="stat-cell">${p.d}</td>
-                    </tr>
-                `;
-            });
+    // Initialize all tables
+    fillTable('goals-body', 'g');
+    fillTable('assists-body', 'a');
+    fillTable('saves-body', 's');
+    fillTable('demos-body', 'd');
+</script>
 
-            // 3. Find the leaders for the cards
-            const getLeader = (key) => [...playerData].sort((a, b) => b[key] - a[key])[0];
-
-            const goalLeader = getLeader('g');
-            document.getElementById('top-goals-name').innerText = goalLeader.name;
-            document.getElementById('top-goals-val').innerText = goalLeader.g;
-
-            const assistLeader = getLeader('a');
-            document.getElementById('top-assists-name').innerText = assistLeader.name;
-            document.getElementById('top-assists-val').innerText = assistLeader.g; // Corrected to use .a
-
-            const saveLeader = getLeader('s');
-            document.getElementById('top-saves-name').innerText = saveLeader.name;
-            document.getElementById('top-saves-val').innerText = saveLeader.s;
-
-            const demoLeader = getLeader('d');
-            document.getElementById('top-demos-name').innerText = demoLeader.name;
-            document.getElementById('top-demos-val').innerText = demoLeader.d;
-        }
-
-        window.onload = loadStats;
-    </script>
 </body>
 </html>
